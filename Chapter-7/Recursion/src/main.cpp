@@ -18,6 +18,52 @@ that doesn't use bezel.
 #include <gtest/gtest.h>
 
 
+/*
+3.  In the 18th century, the astronomer Johann Daniel Titius proposed a rule, later
+    recorded by Johann Elert Bode, for calculating the distance from the sun to
+    each of the planets known at the time. To apply that rule, which is now known 
+    as the `Titius-Bode Law`, you begin by writing down the sequence 
+
+            b_1 = 1  b_2 = 3  b_3 = 6  b_4 = 12  b_5 = 24  b_6 = 48 . . .
+
+    where each subsequent element in the sequence is twice the preceding one. It 
+    turns out that an approximate distance to the ith plaent can be computed from
+    this series by applying the formula
+
+                            d_i = (4 + b_i) / 10
+
+    The distance d_i is expressed in `astronomical units` (AU), which correpond to
+    the average distance from the earth to the sun (approximately 93,000000 miles.)
+    Except for a disconcerting gap between Mars and Jupite, the Titius-Bode law gives 
+    reasonable apporoximations for the distances to the seven planets known at the 
+    time: 
+
+                            Mercury  0.5 AU
+                            Venus    0.7 AU
+                            Earth    1.0 AU
+                            Mars     1.6 AU
+                            ?        2.8 AU
+                            Jupiter  5.2 AU
+                            Saturn  10.0 AU
+                            Uranus  19.6 AU
+
+    Write a recursive function `getTitiusBodeDistance(k)` that calculates
+    the expected distance between the sun and the kth planet, numering 
+    outward from Mercury starting with 1. 
+
+*/
+
+int b(int i){
+    if (i < 2) return 1;
+    else if (i == 2) return 3; 
+    return 2 * b(i - 1); 
+}
+
+double getTitiusBodeDistance(int k){
+    if (k == 1) return (4.0 + k) / 10.0;
+    return (4.0 + b(k)) / 10.0; 
+}
+
 
 /*
 2.  Unlike many programming languages, C++ does not include a predifined 
@@ -55,7 +101,7 @@ int cannonBall(int k){
     return k * k + cannonBall(k - 1);
 }
 
-/* --- cannonBall Testing --- */
+/*--- cannonBall Testing ---*/
 TEST(CannonBallTest, BaseCases) {
     EXPECT_EQ(cannonBall(0), 0);  // 0 blocks
     EXPECT_EQ(cannonBall(1), 1);  // 1 block
@@ -67,7 +113,7 @@ TEST(CannonBallTest, smallInputs){
     EXPECT_EQ(cannonBall(4), 30);
 }
 
-/* --- raiseToPower Testing --- */
+/*--- raiseToPower Testing ---*/
 TEST(raiseToPower, BaseCase){
     EXPECT_EQ(raiseToPower(1, 0), 1);
     EXPECT_EQ(raiseToPower(0, 1), 0);
@@ -80,7 +126,17 @@ TEST(raiseToPower, smallInputs){
     EXPECT_EQ(raiseToPower(8, 4), 4096);  
 }
 
-
+/*--- getTitiusBodeDistance Testing ---*/
+TEST(getTitiusBodeDistance, sevenPlanets){
+    EXPECT_EQ(getTitiusBodeDistance(1), 0.5);
+    EXPECT_EQ(getTitiusBodeDistance(2), 0.7);
+    EXPECT_EQ(getTitiusBodeDistance(3), 1.0);
+    EXPECT_EQ(getTitiusBodeDistance(4), 1.6);
+    EXPECT_EQ(getTitiusBodeDistance(5), 2.8);
+    EXPECT_EQ(getTitiusBodeDistance(6), 5.2);
+    EXPECT_EQ(getTitiusBodeDistance(7), 10.0);
+    EXPECT_EQ(getTitiusBodeDistance(8), 19.6);
+}
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
