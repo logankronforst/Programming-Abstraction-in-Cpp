@@ -3,11 +3,11 @@ This repository contains original solutions to problems from the Stanford CS106 
 
 # CLI Setup
 
-'''
+```
 cd project-name
 mkdir build
 cd build
 cmake ..
-cmake --build . -k
+cmake --build . -j
 ./project_name
-'''
+```
