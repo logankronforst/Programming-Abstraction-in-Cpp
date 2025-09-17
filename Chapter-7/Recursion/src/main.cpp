@@ -14,9 +14,47 @@ that doesn't use bezel.
 */
 
 #include <iostream>
-#include <iostream>
+#include <math.h>
 #include <gtest/gtest.h>
 
+
+/*
+5.  Write an interative implementation of the function `fib(n)`
+
+        int fib(n){
+            if (n < 2) return n;
+            return fib(n - 1) + fib(n - 2); 
+        }
+*/
+int fib(int n){
+    if (n == 1) return 1; 
+    int *dp = new int[n + 1];
+    dp[1] = 1; 
+    dp[2] = 2;
+    for (int i = 3; i <= n; i++){
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n]; 
+}
+
+/*
+4.  The `greatest common divisor` (often abbreviated to gcd) of two nonnegative
+    integers is the largest integer that divides evenly into both. in the third 
+    century BCE, the Greek mathematician Euclid discoevered that the greatest 
+    common divisor of x and y can always be computed as follows:
+
+        - If x is evenly divisible by y then y is the greatest common divisor.
+
+        - Otherwise, the greatest common divisor of x and y is always equal to the
+        greatest common divisor of y and the remainder of x divided by y. 
+
+    Use Euclid's insight to write a recursive function `gcd(x, y)` that computes 
+    the greatest common divisor of x and y.
+*/
+long gcd(long x, long y){
+    if (x % y == 0) return y; 
+    return gcd(y, x % y);
+}
 
 /*
 3.  In the 18th century, the astronomer Johann Daniel Titius proposed a rule, later
@@ -50,9 +88,7 @@ that doesn't use bezel.
     Write a recursive function `getTitiusBodeDistance(k)` that calculates
     the expected distance between the sun and the kth planet, numering 
     outward from Mercury starting with 1. 
-
 */
-
 int b(int i){
     if (i < 2) return 1;
     else if (i == 2) return 3; 
@@ -63,7 +99,6 @@ double getTitiusBodeDistance(int k){
     if (k == 1) return (4.0 + k) / 10.0;
     return (4.0 + b(k)) / 10.0; 
 }
-
 
 /*
 2.  Unlike many programming languages, C++ does not include a predifined 
@@ -85,7 +120,6 @@ int raiseToPower(int n, int k){
     if (k == 0) return 1; 
     return n * raiseToPower(n, k - 1); 
 }
-
 
 /*
 1.  Spherical objects, such as cannonballs, can be stacked to form a pyramid with
@@ -136,6 +170,19 @@ TEST(getTitiusBodeDistance, sevenPlanets){
     EXPECT_EQ(getTitiusBodeDistance(6), 5.2);
     EXPECT_EQ(getTitiusBodeDistance(7), 10.0);
     EXPECT_EQ(getTitiusBodeDistance(8), 19.6);
+}
+
+/*--- gcd Testing ---*/
+TEST(gcd, smallInputs){
+    EXPECT_EQ(gcd(1, 2), 1);
+    EXPECT_EQ(gcd(2, 10), 2);
+    EXPECT_EQ(gcd(15, 30), 15); 
+}
+
+TEST(gcd, largeInputs){
+    EXPECT_EQ(gcd(50, 422), 2);
+    EXPECT_EQ(gcd(9876543210, 1234567890), 90);
+    EXPECT_EQ(gcd(pow(2, 40), pow(2,35)), pow(2, 35)); 
 }
 
 int main(int argc, char** argv) {
