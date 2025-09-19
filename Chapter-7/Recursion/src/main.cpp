@@ -18,6 +18,25 @@ that doesn't use bezel.
 #include <gtest/gtest.h>
 
 
+
+
+
+
+/*
+6.	Write a programming abstraction that counts the recursive calls 
+	to a fibbonaci and additive sequence. 
+*/
+
+class countRecursive{
+		
+
+
+}
+
+
+
+
+
 /*
 5.  Write an interative implementation of the function `fib(n)`
 
