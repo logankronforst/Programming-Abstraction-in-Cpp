@@ -20,14 +20,36 @@ that doesn't use bezel.
 using namespace std; 
 
 
+/*
+7.  Write a recursive function `digitSum(n)` that takes a nonnegative integer and
+    returns the sum of its digits. For example, calling `digitSum(1729)` should 
+    return 1 + 7 + 2 + 9, which is 19. 
 
+        The recursive implementation of `digitSum` depends on the fact that it is
+    very easy to break an integer into two components using division by 10. 
+    For example, given the integer 1729, you can divide it into two pieces as 
+    follows:
 
+                                        1729
+                                       /    \
+                                     172     9
+                                     / \    
+                                   17  2
+                                  /  \
+                                 1    7  
+
+    Each of the resulting integers is strictly smaller than the original and thus 
+    represents a simpler case. 
+*/
+int digitSum(int n){
+    if (n < 10) return n;
+    return n % 10 + digitSum(n / 10);
+}
 
 /*
 6.	Write a programming abstraction that counts the recursive calls 
 	to a fibbonaci and additive sequence. 
 */
-
 class countRecursive{
     public:
         int countFib = 0;
@@ -247,6 +269,13 @@ TEST(gcd, largeInputs){
     EXPECT_EQ(gcd(50, 422), 2);
     EXPECT_EQ(gcd(9876543210, 1234567890), 90);
     EXPECT_EQ(gcd(pow(2, 40), pow(2,35)), pow(2, 35)); 
+}
+
+/*--- digitSum Testing ---*/
+TEST(digitSum, simpleTest){
+    EXPECT_EQ(digitSum(1729), 19); 
+    EXPECT_EQ(digitSum(1234), 10);
+    EXPECT_EQ(digitSum(80085), 21);
 }
 
 int main(int argc, char** argv) {
