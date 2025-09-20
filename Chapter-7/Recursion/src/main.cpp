@@ -17,6 +17,7 @@ that doesn't use bezel.
 #include <math.h>
 #include <gtest/gtest.h>
 
+using namespace std; 
 
 
 
@@ -28,10 +29,53 @@ that doesn't use bezel.
 */
 
 class countRecursive{
-		
+    public:
+        int countFib = 0;
+        int countAdditive = 0; 
 
+        int fib(int n){
+            countFib++;
+            if (n < 2) return n; 
+            return fib(n - 1) + fib(n - 2);
+        }		
 
-}
+        int additiveSequence(int n, int t0, int t1){
+            countAdditive++;
+            if (n == 0) return t0; 
+            if (n == 1) return t1; 
+            return additiveSequence(n - 1, t1, t0 + t1); 
+        }
+
+        int additiveSequence(int n){
+            return additiveSequence(n, 0, 1);
+        }
+
+        int getFibCount(){
+            return countFib;
+        }
+
+        int getAdditiveCount(){
+            return countAdditive;
+        }
+
+        void printRecursiveCalls(){
+            cout << left << setw(4) << "n"
+                 << setw(10) << "fib"
+                 << setw(10) << "additive" << endl;
+            cout << string(24, '-') << endl;
+
+            for (int i = 0; i <= 12; i++){
+                fib(i);
+                additiveSequence(i);
+                cout << left << setw(4) << i
+                     << setw(10) << getFibCount()
+                     << setw(10) << getAdditiveCount() << endl;
+                countFib = 0;
+                countAdditive = 0;
+
+            }
+        }
+};
 
 
 
@@ -206,6 +250,9 @@ TEST(gcd, largeInputs){
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
+
+    countRecursive count;
+    count.printRecursiveCalls(); 
     
     return RUN_ALL_TESTS();
 }
