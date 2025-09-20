@@ -47,6 +47,7 @@ class countRecursive{
         }
 
         int additiveSequence(int n){
+            countAdditive++;
             return additiveSequence(n, 0, 1);
         }
 
