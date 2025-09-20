@@ -20,6 +20,30 @@ that doesn't use bezel.
 using namespace std; 
 
 
+
+/*
+8.  The digital root of an integer n is defined as the result of summing the digits 
+    repeatedly until only a single digit remains. For example, the digital root of
+    1729 can be calulated using the following steps:
+
+             Step 1:    1 + 7 + 2 + 9 --> 19
+             Step 2:    1 + 9         --> 10
+             Step 3:    1 + 0         -->  1
+             
+    Because the total at the end of step 3 is the single digit 1, that value is the
+    digital root. 
+
+        Write a function `digitalRoot(n)` that returns the digital root of its
+    argument. Although it is easy to implement digitalRoot using the digitSum
+    function from exercise 7 and a `while` loop, part of the challenge of this
+    problem is to write the function recursively without using any explicit 
+    loop constructs. 
+*/
+int digitalRoot(int n){
+    return 0;
+
+}
+
 /*
 7.  Write a recursive function `digitSum(n)` that takes a nonnegative integer and
     returns the sum of its digits. For example, calling `digitSum(1729)` should 
@@ -42,6 +66,15 @@ using namespace std;
     represents a simpler case. 
 */
 int digitSum(int n){
+    /*      __
+           |  
+           |  n                  n < 10
+    f(n) = | 
+           |  n % 10 + f(n / 10) otherwise
+           |__ 
+           
+    
+    */
     if (n < 10) return n;
     return n % 10 + digitSum(n / 10);
 }
