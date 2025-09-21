@@ -18,7 +18,32 @@ that doesn't use bezel.
 #include <gtest/gtest.h>
 using namespace std; 
 
+/*
+9.  As you know from Chapter 2, the mathematical combinations function c(n, k) is
+    usually defined in terms of factorials, as follows:
 
+              c(n, k) = n! / k! x (n - k)! 
+
+    The values of c(n, k) can also be arranged geometrically to form a triangle in
+    which n increases as you move down the triangle and k increases as you move 
+    from left to right. THe resulting structure, which is called Pascal's Triangle
+    after the French mathematician Blaise Pascal, is arranged like this:
+
+                                        c(0, 0) 
+
+                                   c(1, 0)    c(1, 1)
+
+                             c(2, 0)    c(2, 1)    c(2, 2) 
+
+                        c(3, 0)   c(3, 1)     c(3, 2)   c(3, 3)
+
+                  c(4, 0)    c(4, 1)    c(4, 2)    c(4, 3)    c(4, 4)
+
+    Pascal's Triangle has the interesting property that every entry is the sum of the
+    two entries above it, except along the left and right edges, where the values are
+    always 1. Consider for example, the circled entry in the follwing display of 
+    Pascal's 
+*/
 
 /*
 8.  The digital root of an integer n is defined as the result of summing the digits 
@@ -38,9 +63,14 @@ using namespace std;
     problem is to write the function recursively without using any explicit 
     loop constructs. 
 */
-int digitalRoot(int n){
-    return 0;
+int digitSum(int n);
 
+int digitalRoot(int n){
+    
+    while (n >= 10){
+        n = digitSum(n); 
+    }
+    return n; 
 }
 
 /*
@@ -57,14 +87,14 @@ int digitalRoot(int n){
                                        /    \
                                      172     9
                                      / \    
-                                   17  2
+                                   17   2
                                   /  \
                                  1    7  
 
     Each of the resulting integers is strictly smaller than the original and thus 
     represents a simpler case. 
 */
-int digitSum(int n, int total){
+int digitSum(int n){
     /*      __
            |  
            |  n                  n < 10
@@ -75,9 +105,7 @@ int digitSum(int n, int total){
     
     */
     if (n < 10) return n;
-    total = n % 10 + digitSum(n / 10, total);
-    cout << "n = " << n << " total = " << total << endl;
-    return total;
+    return n % 10 + digitSum(n / 10);
 }
 
 /*
@@ -303,10 +331,19 @@ TEST(gcd, largeInputs){
 
 /*--- digitSum Testing ---*/
 TEST(digitSum, simpleTest){
-    EXPECT_EQ(digitSum(1729, 0), 19); 
-    EXPECT_EQ(digitSum(1234, 0), 10);
-    EXPECT_EQ(digitSum(80085, 0), 21);
+    EXPECT_EQ(digitSum(1729), 19); 
+    EXPECT_EQ(digitSum(1234), 10);
+    EXPECT_EQ(digitSum(80085), 21);
 }
+
+/*--- digitalRoot Testing ---*/
+TEST(digitalRoot, simpleTest){
+    EXPECT_EQ(digitalRoot(1729), 1); 
+    EXPECT_EQ(digitalRoot(1234), 1); 
+    EXPECT_EQ(digitalRoot(80085), 3); 
+
+}
+
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
