@@ -16,7 +16,6 @@ that doesn't use bezel.
 #include <iostream>
 #include <math.h>
 #include <gtest/gtest.h>
-
 using namespace std; 
 
 
@@ -65,7 +64,7 @@ int digitalRoot(int n){
     Each of the resulting integers is strictly smaller than the original and thus 
     represents a simpler case. 
 */
-int digitSum(int n){
+int digitSum(int n, int total){
     /*      __
            |  
            |  n                  n < 10
@@ -76,7 +75,9 @@ int digitSum(int n){
     
     */
     if (n < 10) return n;
-    return n % 10 + digitSum(n / 10);
+    total = n % 10 + digitSum(n / 10, total);
+    cout << "n = " << n << " total = " << total << endl;
+    return total;
 }
 
 /*
@@ -132,10 +133,6 @@ class countRecursive{
             }
         }
 };
-
-
-
-
 
 /*
 5.  Write an interative implementation of the function `fib(n)`
@@ -306,9 +303,9 @@ TEST(gcd, largeInputs){
 
 /*--- digitSum Testing ---*/
 TEST(digitSum, simpleTest){
-    EXPECT_EQ(digitSum(1729), 19); 
-    EXPECT_EQ(digitSum(1234), 10);
-    EXPECT_EQ(digitSum(80085), 21);
+    EXPECT_EQ(digitSum(1729, 0), 19); 
+    EXPECT_EQ(digitSum(1234, 0), 10);
+    EXPECT_EQ(digitSum(80085, 0), 21);
 }
 
 int main(int argc, char** argv) {
