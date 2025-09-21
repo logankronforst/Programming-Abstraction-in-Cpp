@@ -65,11 +65,17 @@ using namespace std;
 */
 int digitSum(int n);
 
-int digitalRoot(int n){
+int digitalRootIterative(int n){
     
     while (n >= 10){
         n = digitSum(n); 
     }
+    return n; 
+}
+
+int digitalRoot(int n){
+    if (n < 10) return n; 
+    n = digitalRoot(digitSum(n)); 
     return n; 
 }
 
