@@ -42,8 +42,25 @@ using namespace std;
     Pascal's Triangle has the interesting property that every entry is the sum of the
     two entries above it, except along the left and right edges, where the values are
     always 1. Consider for example, the circled entry in the follwing display of 
-    Pascal's 
+    Pascal's Triangle: 
+    
+                                          1
+                                        1   1
+                                      1   2   1
+                                    1   3   3   1
+                                  1   4   6   4   1
+                                1   5  10   10  5   1
+                              1   6 (15)  20  15  6   1  
+                            1   7  21  35   35  21  7   1  
+
+    This entry, which corresponds to c(6, 2) is the sum of the two entries-5 and
+    10-that appear above it to either side. Use this relationshop between entries in
+    Pascal's Triangle to write a recursive implementation of the c(n, k) function
+    that uses no loops, no multiplication, and no calls to `fact`. 
 */
+int c(int n, int k){
+    return 0; 
+}
 
 /*
 8.  The digital root of an integer n is defined as the result of summing the digits 
