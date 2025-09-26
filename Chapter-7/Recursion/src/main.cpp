@@ -59,7 +59,8 @@ using namespace std;
     that uses no loops, no multiplication, and no calls to `fact`. 
 */
 int c(int n, int k){
-    return 0; 
+    if (n == k || k == 0) return 1; 
+    return c(n - 1, k - 1) + c(n - 1, k);
 }
 
 /*
@@ -365,6 +366,12 @@ TEST(digitalRoot, simpleTest){
     EXPECT_EQ(digitalRoot(1234), 1); 
     EXPECT_EQ(digitalRoot(80085), 3); 
 
+}
+
+/*--- combinatorial Testing ---*/
+TEST(nChooseK, simpleTest){
+    EXPECT_EQ(c(6, 2), 15);
+    EXPECT_EQ(c(10, 4), 210);
 }
 
 
